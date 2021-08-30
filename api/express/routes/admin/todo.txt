@@ -1,0 +1,3 @@
+Gör middleware för adminroutes som tittar om req.jwt.sub har admin priv
+
+(för palats kanske man även vill ha organization_admin routes, för att titta om man kan göra admin grejer i en organisation)

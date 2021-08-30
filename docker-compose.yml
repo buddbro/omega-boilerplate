@@ -1,0 +1,57 @@
+version: '3'
+services:
+  client:
+    stdin_open: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+
+  api:
+    build:
+      dockerfile: Dockerfile.dev
+      context: './api'
+    restart: always
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_USERNAME: user
+      DB_PASSWORD: user
+      DB_NAME: db_dev
+      DB_PORT: 5432
+      NODE_ENV: development
+      PORT: 5000
+    entrypoint: sh -c "/usr/src/app/api/bin/init.sh"
+    volumes:
+      - ./api:/app
+      - /app/node_modules
+
+  nginx:
+    depends_on:
+      - api
+      - client
+    restart: always
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports:
+      - '3050:80'
+
+  postgres:
+    image: postgres:12.2
+    restart: always
+    environment:
+      POSTGRES_DB: db_dev
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:
