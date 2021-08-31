@@ -2,6 +2,8 @@
 
 ## Usage
 
+Obviously change passwords etc in production.yml
+
 1. Install Docker desktop (or docker + docker-compose on unix systems)
 2. Run `npm run dev` in the root of the project
 3. ?????
@@ -18,3 +20,4 @@
 7. (?) Add redis
 8. (?) Add testing
 9. Write proper readme
+10. Make it startable by npm run dev / npm run prod

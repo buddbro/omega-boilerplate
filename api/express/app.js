@@ -10,7 +10,6 @@ const publicRoutes = {
 
 const privateRoutes = {
   users: require('./routes/private/users'),
-  auth: require('./routes/private/auth'),
 }
 
 const app = express()
@@ -29,42 +28,42 @@ function makeHandlerAwareOfAsyncErrors(handler) {
   }
 }
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.json({ message: 'You alright, mate!' })
 })
 
 for (const [routeName, routeController] of Object.entries(publicRoutes)) {
   if (routeController.getAll) {
     app.get(
-      `/api/${routeName}`,
+      `/${routeName}`,
       makeHandlerAwareOfAsyncErrors(routeController.getAll)
     )
   }
 
   if (routeController.getById) {
     app.get(
-      `/api/${routeName}/:id`,
+      `/${routeName}/:id`,
       makeHandlerAwareOfAsyncErrors(routeController.getById)
     )
   }
 
   if (routeController.create) {
     app.post(
-      `/api/${routeName}`,
+      `/${routeName}`,
       makeHandlerAwareOfAsyncErrors(routeController.create)
     )
   }
 
   if (routeController.update) {
     app.put(
-      `/api/${routeName}/:id`,
+      `/${routeName}/:id`,
       makeHandlerAwareOfAsyncErrors(routeController.update)
     )
   }
 
   if (routeController.remove) {
     app.delete(
-      `/api/${routeName}/:id`,
+      `/${routeName}/:id`,
       makeHandlerAwareOfAsyncErrors(routeController.remove)
     )
   }
@@ -73,7 +72,7 @@ for (const [routeName, routeController] of Object.entries(publicRoutes)) {
 for (const [routeName, routeController] of Object.entries(privateRoutes)) {
   if (routeController.getAll) {
     app.get(
-      `/api/protected/${routeName}`,
+      `/protected/${routeName}`,
       authMiddleware,
       makeHandlerAwareOfAsyncErrors(routeController.getAll)
     )
@@ -81,7 +80,7 @@ for (const [routeName, routeController] of Object.entries(privateRoutes)) {
 
   if (routeController.getById) {
     app.get(
-      `/api/protected/${routeName}/:id`,
+      `/protected/${routeName}/:id`,
       authMiddleware,
       makeHandlerAwareOfAsyncErrors(routeController.getById)
     )
@@ -89,7 +88,7 @@ for (const [routeName, routeController] of Object.entries(privateRoutes)) {
 
   if (routeController.create) {
     app.post(
-      `/api/protected/${routeName}`,
+      `/protected/${routeName}`,
       authMiddleware,
       makeHandlerAwareOfAsyncErrors(routeController.create)
     )
@@ -97,7 +96,7 @@ for (const [routeName, routeController] of Object.entries(privateRoutes)) {
 
   if (routeController.update) {
     app.put(
-      `/api/protected/${routeName}/:id`,
+      `/protected/${routeName}/:id`,
       authMiddleware,
       makeHandlerAwareOfAsyncErrors(routeController.update)
     )
@@ -105,7 +104,7 @@ for (const [routeName, routeController] of Object.entries(privateRoutes)) {
 
   if (routeController.remove) {
     app.delete(
-      `/api/protected/${routeName}/:id`,
+      `/protected/${routeName}/:id`,
       authMiddleware,
       makeHandlerAwareOfAsyncErrors(routeController.remove)
     )

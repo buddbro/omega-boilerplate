@@ -29,14 +29,14 @@ function LoginPage({ auth }) {
     }
 
     asyncLocalStorage
-      .setItem('felix_cookie', token)
-      .then(() => asyncLocalStorage.getItem('felix_cookie'))
+      .setItem('auth_cookie', token)
+      .then(() => asyncLocalStorage.getItem('auth_cookie'))
       .then(() => history.push('/'))
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    fetch('http://localhost:3001/api/auth', {
+    fetch('/api/auth', {
       method: 'POST',
       headers: {
         Accept: 'application/json',

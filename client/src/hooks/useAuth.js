@@ -35,7 +35,7 @@ function useAuth() {
 
   const isAuthenticated = () => {
     if (user || token) return true
-    let tk = localStorage.getItem('felix_cookie')
+    let tk = localStorage.getItem('auth_cookie')
     if (tk) {
       setToken(tk)
       return true
