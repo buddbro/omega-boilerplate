@@ -11,13 +11,11 @@ Obviously change passwords etc in production.yml
 
 ## todo
 
-1. Test existing to make sure its OK
-2. Create production dockerfiles
-3. Add autodeploy
-4. Clean up express API
-5. Add lets encrypt
-6. Add graphql
+1. Add autodeploy - https://gist.github.com/noelboss/3fe13927025b89757f8fb12e9066f2fa
+2. Clean up express API
+3. Add lets encrypt - https://pentacent.medium.com/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71
+4. Make it startable by npm run dev / npm run prod
+5. Write proper readme
+6. (?) Add graphql
 7. (?) Add redis
 8. (?) Add testing
-9. Write proper readme
-10. Make it startable by npm run dev / npm run prod
